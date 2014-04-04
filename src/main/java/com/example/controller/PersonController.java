@@ -20,12 +20,12 @@ public class PersonController {
     private PersonService personService;
 
     @RequestMapping("/")
-    public String listPeople(Map<String, Object> map) {
+    public String createPatient(Map<String, Object> map) {
 
         map.put("person", new Person());
         map.put("peopleList", personService.listPeople());
 
-        return "people";
+        return "createpatient";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -33,7 +33,15 @@ public class PersonController {
 
         personService.addPerson(person);
 
-        return "redirect:/people/";
+        return "redirect:/patient/list/";
+    }
+    
+    @RequestMapping("/list")
+    public String listPatients(Map<String, Object> map) {
+
+        map.put("patientList", personService.listPeople());
+
+        return "listpatients";
     }
 
     @RequestMapping("/delete/{personId}")
@@ -41,6 +49,6 @@ public class PersonController {
 
         personService.removePerson(personId);
 
-        return "redirect:/people/";
+        return "redirect:/patient/list/";
     }
 }
